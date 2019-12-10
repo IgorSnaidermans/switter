@@ -1,5 +1,7 @@
 package lv.helloit.switter;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,7 +22,8 @@ public class TestController {
     }
 
     @PostMapping("/switt")
-    public void addSweet(@RequestBody String switt) {
+    public ResponseEntity<String> addSweet(@RequestBody String switt) {
         sweets.add(switt);
+        return new ResponseEntity<String>("Switt created. Everything went good!", HttpStatus.CREATED);
     }
 }

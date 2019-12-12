@@ -8,16 +8,7 @@ public class Swit {
     private String content;
     private String author;
     private LocalDateTime publishDate;
-
-    @Override
-    public String toString() {
-        return "Swit{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", author='" + author + '\'' +
-                ", publishDate=" + publishDate +
-                '}';
-    }
+    private LocalDateTime lastUpdateDate;
 
     @Override
     public boolean equals(Object o) {
@@ -27,12 +18,24 @@ public class Swit {
         return Objects.equals(id, swit.id) &&
                 Objects.equals(content, swit.content) &&
                 Objects.equals(author, swit.author) &&
-                Objects.equals(publishDate, swit.publishDate);
+                Objects.equals(publishDate, swit.publishDate) &&
+                Objects.equals(lastUpdateDate, swit.lastUpdateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, author, publishDate);
+        return Objects.hash(id, content, author, publishDate, lastUpdateDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Swit{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", publishDate=" + publishDate +
+                ", lastUpdateDate=" + lastUpdateDate +
+                '}';
     }
 
     public Long getId() {
@@ -65,5 +68,13 @@ public class Swit {
 
     public void setPublishDate(LocalDateTime publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }

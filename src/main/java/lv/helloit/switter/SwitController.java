@@ -1,37 +1,28 @@
 package lv.helloit.switter;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
-@RestController
+@Controller
 public class SwitController {
-    private final SwitService service;
+    private final SwitService switService;
 
-    public SwitController(SwitService service) {
-        this.service = service;
+    public SwitController(SwitService switService) {
+        this.switService = switService;
     }
 
     @GetMapping("/swits")
-    public List<Swit> getAllSwits() {
-        return service.getAllSwits();
+    String getSwits(Model model) {
+        model.addAttribute("swits", switService.getAllSwits());
+        return "swits";
     }
 
-    @DeleteMapping("/swits")
-    public void deleteAllSwits() {
-        service.deleteAllSwits();
-    }
-
-    @PostMapping("/swit")
-    public ResponseEntity<Swit> addSwit(@RequestBody Swit newSwit) {
-        return new ResponseEntity<>(service.addSwit(newSwit), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/swit/{id}")
-    public void update(@PathVariable("id") Long id,
-                       @RequestBody Swit newSwit) {
-        service.update(id, newSwit);
+    @GetMapping("/swit/{id}")
+    String getSwit(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("swit", switService.getSwitById(id));
+        return "swit";
     }
 }

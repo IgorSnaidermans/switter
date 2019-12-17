@@ -15,6 +15,13 @@ public class SwitService {
         return swits;
     }
 
+    public Swit getSwitById(Long switId) {
+        return swits.stream()
+                .filter(s -> s.getId().equals(switId))
+                .findFirst()
+                .get();
+    }
+
     public void deleteAllSwits() {
         swits.clear();
     }

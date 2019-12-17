@@ -6,7 +6,9 @@
     <title>Swit ${swit.id}</title>
 </head>
 <body>
+<a href="/swits">Back</a>
 <%--@elvariable id="swit" type="lv.helloit.switter.Swit"--%>
+
 <p>${swit.id}</p>
 <p>${swit.author}</p>
 <p>${swit.content}</p>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Latest swits</title>
+    <link href="/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%--@elvariable id="swits" type="java.util.List"--%>
@@ -13,7 +14,7 @@
 </c:if>
 
 <c:forEach items="${swits}" var="swit">
-    <p style="font-weight: bold;">${swit.author}: </p>
+    <p class="author">${swit.author}: </p>
     <a href="/swit/${swit.id}">
             ${swit.content}
     </a>

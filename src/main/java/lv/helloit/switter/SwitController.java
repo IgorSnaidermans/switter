@@ -22,6 +22,8 @@ public class SwitController {
 
     @GetMapping("/swit/{id}")
     String getSwit(Model model, @PathVariable("id") Long id) {
+        System.out.println("Get swit by " + id);
+
         model.addAttribute("swit", switService.getSwitById(id));
         return "swit";
     }

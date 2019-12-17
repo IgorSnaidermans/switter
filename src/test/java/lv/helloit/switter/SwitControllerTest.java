@@ -1,44 +1,82 @@
 package lv.helloit.switter;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.ArrayList;
+import java.util.List;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SwitControllerTest {
     @Autowired
-    private MockMvc mockMvc;
+    private TestRestTemplate restTemplate;
+
+    @LocalServerPort
+    private int port;
 
     @Test
-    void shouldPostAndGetSwit() throws Exception {
-        String switJson = "{ \"author\": \"Me\", " +
-                "\"content\": \"My first tweet\"" +
-                "}";
+    void shouldPostAndGetSwit() {
+        Swit swit = new Swit();
+        swit.setAuthor("Me");
+        swit.setContent("Test swit");
 
-        mockMvc.perform(
-                post("/swit")
-                        .content(switJson)
-                        .contentType("application/json")
-        ).andExpect(status().is2xxSuccessful());
+        restTemplate.postForObject("http://localhost:" + port + "/swit", swit, String.class);
 
-        MvcResult result = mockMvc.perform(get("/swits"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(content().contentType("application/json"))
-                .andReturn();
+        List<Swit> swits = restTemplate.getForObject(
+                "http://localhost:" + port + "/swits",
+                SwitList.class);
 
-        String responseJson = result.getResponse().getContentAsString();
-        assertTrue(responseJson.contains("\"id\":1"));
-        assertTrue(responseJson.contains("My first tweet"));
+        System.out.println(swit);
+
+        assertEquals(1, swits.size());
+        var fetchedSwit = swits.get(0);
+        assertEquals(1L, fetchedSwit.getId());
+    }
+
+    @Test
+    void shouldDeleteSwits() {
+        Swit swit = new Swit();
+        swit.setAuthor("Me");
+        swit.setContent("Test swit");
+
+        restTemplate.postForObject("http://localhost:" + port + "/swit", swit, String.class);
+
+        restTemplate.delete("http://localhost:" + port + "/swits");
+
+        List<Swit> swits = restTemplate.getForObject(
+                "http://localhost:" + port + "/swits",
+                SwitList.class);
+
+        assertEquals(0, swits.size());
+    }
+
+    @Test
+    void shouldPut() {
+        Swit swit = new Swit();
+        swit.setAuthor("Me");
+        swit.setContent("Test swit");
+
+        Swit createdSwit = restTemplate.postForObject(
+                "http://localhost:" + port + "/swit", swit, Swit.class);
+
+        Swit newSwit = new Swit();
+        newSwit.setContent("New Content");
+
+        restTemplate.put("http://localhost:" + port + "/swit/" + createdSwit.getId(), newSwit);
+
+        List<Swit> swits = restTemplate.getForObject(
+                "http://localhost:" + port + "/swits",
+                SwitList.class);
+
+        assertEquals("New Content", swits.get(0).getContent());
     }
 }
+
+class SwitList extends ArrayList<Swit> {
+};

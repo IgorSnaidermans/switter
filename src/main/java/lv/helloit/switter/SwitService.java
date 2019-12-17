@@ -1,9 +1,12 @@
 package lv.helloit.switter;
 
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SwitService {
     private List<Swit> swits = new ArrayList<>();
     private Long idCounter = 1L;
@@ -16,13 +19,14 @@ public class SwitService {
         swits.clear();
     }
 
-    public void addSwit(Swit newSwit) {
+    public Swit addSwit(Swit newSwit) {
         newSwit.setId(idCounter);
         idCounter++;
         var currentTime = LocalDateTime.now();
         newSwit.setPublishDate(currentTime);
         newSwit.setLastUpdateDate(currentTime);
         swits.add(newSwit);
+        return newSwit;
     }
 
     public void update(Long id, Swit newSwit) {

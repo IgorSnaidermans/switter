@@ -10,7 +10,7 @@
 <%--@elvariable id="swits" type="java.util.List"--%>
 <%--@elvariable id="swit" type="lv.helloit.switter.Swit"--%>
 <c:if test="${swits.isEmpty()}">
-    Sorry, no swits for you!
+    Sorry, no swits for today!
 </c:if>
 
 <c:forEach items="${swits}" var="swit">
@@ -20,5 +20,9 @@
     </a>
     <br />
 </c:forEach>
+<c:if test="${!swits.isEmpty()}">
+<br/>
+<a href="/swits/delete">Delete all swits</a>
+</c:if>
 </body>
 </html>

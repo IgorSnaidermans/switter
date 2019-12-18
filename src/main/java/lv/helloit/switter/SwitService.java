@@ -22,6 +22,10 @@ public class SwitService {
                 .get();
     }
 
+    public void deleteSwitById(Long id){
+        swits.remove(getSwitById(id));
+    }
+
     public void deleteAllSwits() {
         swits.clear();
     }

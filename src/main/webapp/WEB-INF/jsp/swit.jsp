@@ -9,10 +9,19 @@
 <a href="/swits">Back</a>
 <%--@elvariable id="swit" type="lv.helloit.switter.Swit"--%>
 
-<p>${swit.id}</p>
-<p>${swit.author}</p>
+<p>Swit id: ${swit.id}</p>
+<p>Swit author: ${swit.author}</p>
+<br/>
+<p>Content</p>
 <p>${swit.content}</p>
-<p>${swit.publishDate}</p>
-<p>${swit.lastUpdateDate}</p>
+<br/>
+<p>Published: ${swit.publishDate}</p>
+<c:if test="${!swit.publishDate.equals(swit.lastUpdateDate)}">
+<p>Modified: ${swit.lastUpdateDate}</p>
+</c:if>
+<a href="/swit/${swit.id}/update">Update this swit</a>
+<br/>
+<a href="/swit/${swit.id}/delete">Delete this swit</a>
+
 </body>
 </html>

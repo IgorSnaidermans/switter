@@ -22,7 +22,7 @@ public class SwitService {
                 .get();
     }
 
-    public void deleteSwitById(Long id){
+    public void deleteSwitById(Long id) {
         swits.remove(getSwitById(id));
     }
 
@@ -40,14 +40,10 @@ public class SwitService {
         return newSwit;
     }
 
-    public void update(Long id, Swit newSwit) {
-        for (Swit existingSwit : swits) {
-            if (existingSwit.getId().equals(id)) {
-                existingSwit.setAuthor(newSwit.getAuthor());
-                existingSwit.setContent(newSwit.getContent());
-                existingSwit.setLastUpdateDate(LocalDateTime.now());
-                break;
-            }
-        }
+    public void update(Long id, String newContent) {
+        Swit targetSwit = getSwitById(id);
+        targetSwit.setContent(newContent);
+        targetSwit.setLastUpdateDate(LocalDateTime.now());
+
     }
 }

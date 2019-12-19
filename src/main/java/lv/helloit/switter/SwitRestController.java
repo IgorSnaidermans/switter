@@ -29,10 +29,4 @@ public class SwitRestController {
     public ResponseEntity<Swit> addSwit(@RequestBody Swit newSwit) {
         return new ResponseEntity<>(service.addSwit(newSwit), HttpStatus.CREATED);
     }
-
-    @PutMapping("/swit/{id}")
-    public void update(@PathVariable("id") Long id,
-                       @RequestBody Swit newSwit) {
-        service.update(id, newSwit);
-    }
 }

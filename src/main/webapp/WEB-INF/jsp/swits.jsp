@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Latest swits</title>
     <link href="/styles.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 <%--@elvariable id="swits" type="java.util.List"--%>
@@ -14,7 +16,7 @@
 </c:if>
 
 <c:forEach items="${swits}" var="swit">
-    <p class="author">${swit.author}: </p>
+    <p class="author">Author: ${swit.author}</p>
     <a href="/swit/${swit.id}">
             ${swit.content}
     </a>
@@ -22,7 +24,10 @@
 </c:forEach>
 <c:if test="${!swits.isEmpty()}">
 <br/>
-<a href="/swits/delete">Delete all swits</a>
+<button onclick="deleteAllSwits()">Delete all swits</button>
 </c:if>
+<br/>
+<a href="/postSwit">Post new Swit</a>
+
 </body>
 </html>

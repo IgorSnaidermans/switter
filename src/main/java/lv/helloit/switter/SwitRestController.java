@@ -1,8 +1,11 @@
 package lv.helloit.switter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
 public class SwitRestController {
     private final SwitService service;
 
+    @Autowired
     public SwitRestController(SwitService service) {
         this.service = service;
     }
@@ -25,8 +29,18 @@ public class SwitRestController {
         service.deleteAllSwits();
     }
 
+    @DeleteMapping("/swit/{id}/delete")
+    public void deleteSwitById(@PathVariable("id") Long id) {
+        service.deleteSwitById(id);
+    }
+
+    @PostMapping("/swit/update")
+    public void saveSwitUpdate(@ModelAttribute Swit swit){
+        service.update(swit.getId(), swit.getContent());
+    }
+
     @PostMapping("/swit")
-    public ResponseEntity<Swit> addSwit(@RequestBody Swit newSwit) {
-        return new ResponseEntity<>(service.addSwit(newSwit), HttpStatus.CREATED);
+    public void createSwit(Model model, @ModelAttribute Swit swit) {
+        service.addSwit(swit);
     }
 }

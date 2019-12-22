@@ -8,26 +8,14 @@
 </head>
 
 <body>
-<a href="/swits">Back to all swits</a>
-<%--@elvariable id="swit" type="lv.helloit.switter.Swit"--%>
-<p>Swit update</p>
-<input id="switContent" type="text" name="switContent" value="${swit.content}">
-<br/>
-<a id="saveChanges" href='javascript:saveDataLinkFormation()'>Save changes</a>
-<br/>
 <a href="/swit/${swit.id}">Back</a>
 
-<script>
-    function saveDataLinkFormation() {
-        let switContent = replaceSpacesForLink($('#switContent').val());
-        let finalLink = `/swit/${swit.id}/update/save/?content=` + switContent;
-        $("#saveChanges").attr("href", finalLink);
-
-        function replaceSpacesForLink(rawSwitContent) {
-        return rawSwitContent.replace(/ /g,"%20");
-        }
-    }
-</script>
+<form action="/rest/swit/update" method="post">
+    <input name="id" type="hidden" value="${swit.id}">
+    <p>Content</p>
+    <input name="content" value="${swit.content}">
+    <button type="submit">Submit</button>
+</form>
 
 </body>
 </html>

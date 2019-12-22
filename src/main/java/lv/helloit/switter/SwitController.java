@@ -1,21 +1,21 @@
 package lv.helloit.switter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class SwitController {
     private final SwitService switService;
 
+    @Autowired
     public SwitController(SwitService switService) {
         this.switService = switService;
     }
 
-    @GetMapping("/swits")
+    @GetMapping({"/", "/swits"})
     String getSwits(Model model) {
         model.addAttribute("swits", switService.getAllSwits());
         return "swits";
@@ -27,28 +27,14 @@ public class SwitController {
         return "swit";
     }
 
-    @GetMapping("/swit/{id}/delete")
-    RedirectView deleteSwitById(@PathVariable("id") Long id) {
-        switService.deleteSwitById(id);
-        return new RedirectView("/swits");
-    }
-
-    @GetMapping("/swits/delete")
-    RedirectView deleteAllSwits() {
-        switService.deleteAllSwits();
-        return new RedirectView("/swits");
-    }
-
     @GetMapping("/swit/{id}/update")
     String updateSwit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("swit", switService.getSwitById(id));
         return "updateSwit";
     }
 
-    @GetMapping("/swit/{id}/update/save/")
-    RedirectView saveSwitUpdate(@RequestParam(name="content") String content,
-                          @PathVariable("id") Long id){
-        switService.update(id, content);
-        return new RedirectView("/swits");
+    @GetMapping("/postSwit")
+    String createSwit(Model model) {
+        return "createSwit";
     }
 }

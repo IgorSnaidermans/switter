@@ -22,6 +22,10 @@
             </div>
         </div>
     </c:if>
+    <c:if test="${!swits.isEmpty()}">
+        <a id="postSwitButton" href="/postSwit" class="btn btn-primary">Post new Swit</a>
+        <a href="/" onclick="deleteAllSwits()" class="btn btn-danger">Delete all swits</a>
+    </c:if>
 
     <c:forEach items="${swits}" var="swit">
         <div class="card" style="width: 18rem;">
@@ -34,10 +38,7 @@
         </div>
     </c:forEach>
     <br/>
-    <c:if test="${!swits.isEmpty()}">
-        <a id="postSwitButton" href="/postSwit" class="btn btn-primary">Post new Swit</a>
-        <a href="/" onclick="deleteAllSwits()" class="btn btn-danger">Delete all swits</a>
-    </c:if>
+
 
 </div>
 <!-- BOOTSTRAP -->

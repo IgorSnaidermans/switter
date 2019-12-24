@@ -1,10 +1,11 @@
-package lv.helloit.switter;
+package lv.helloit.switter.swit;
 
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SwitService {
@@ -43,9 +44,9 @@ public class SwitService {
         return swit;
     }
 
-    public void update(Long id, String newContent) {
-        Swit targetSwit = getSwitById(id);
-        targetSwit.setContent(newContent);
+    public void update(UpdateSwitDTO updateSwitDTO) {
+        Swit targetSwit = getSwitById(updateSwitDTO.getId());
+        targetSwit.setContent(updateSwitDTO.getContent());
         targetSwit.setLastUpdateDate(LocalDateTime.now());
 
     }

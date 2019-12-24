@@ -13,12 +13,12 @@
 <body>
 <div class="container">
     <%--@elvariable id="swits" type="java.util.List"--%>
-    <%--@elvariable id="swit" type="lv.helloit.switter.Swit"--%>
+    <%--@elvariable id="swit" type="lv.helloit.switter.swit.Swit"--%>
     <c:if test="${swits.isEmpty()}">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">No swits, be the first one!</h5>
-                <a id="postSwitButton" href="/postSwit" class="btn btn-primary">Post new Swit</a>
+                <a href="/postSwit" class="btn btn-primary">Post new Swit</a>
             </div>
         </div>
     </c:if>

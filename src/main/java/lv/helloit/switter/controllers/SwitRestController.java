@@ -1,9 +1,12 @@
-package lv.helloit.switter;
+package lv.helloit.switter.controllers;
 
+import lv.helloit.switter.swit.ChangeSwitDTO;
+import lv.helloit.switter.swit.Swit;
+import lv.helloit.switter.swit.SwitService;
+import lv.helloit.switter.swit.UpdateSwitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -36,14 +39,15 @@ public class SwitRestController {
     }
 
     @PostMapping("/swit/update")
-    public RedirectView saveSwitUpdate(@ModelAttribute Swit swit) {
-        service.update(swit.getId(), swit.getContent());
+    public RedirectView saveSwitUpdate(@ModelAttribute @Valid UpdateSwitDTO updateSwitDTO) {
+        service.update(updateSwitDTO);
         return new RedirectView("/");
     }
 
     @PostMapping("/swit")
-    public RedirectView createSwit(Model model, @Valid @ModelAttribute ChangeSwitDTO swit) {
-        service.addSwit(swit);
+    public RedirectView createSwit(Model model,
+                                   @Valid @ModelAttribute ChangeSwitDTO changeSwitDTO) {
+        service.addSwit(changeSwitDTO);
         return new RedirectView("/");
     }
 }

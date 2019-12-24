@@ -1,4 +1,4 @@
-package lv.helloit.switter;
+package lv.helloit.switter.swit;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

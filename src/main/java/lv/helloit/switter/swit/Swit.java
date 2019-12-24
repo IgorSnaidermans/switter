@@ -1,4 +1,4 @@
-package lv.helloit.switter;
+package lv.helloit.switter.swit;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

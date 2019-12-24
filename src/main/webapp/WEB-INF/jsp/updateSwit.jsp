@@ -24,7 +24,7 @@
                 Input Error
             </label></c:if>
             <br/>
-            <a href="/" onclick="deleteSwitById(${swit.id})" class="btn btn-danger">Delete swit</a>
+            <a href="deleteSwitById(${swit.id})" onclick="deleteSwitById(${swit.id})" class="btn btn-danger">Delete swit</a>
         </div>
     </div>
 

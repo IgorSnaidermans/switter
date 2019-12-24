@@ -3,11 +3,12 @@ function deleteAllSwits() {
         url: "/rest/swits",
         type: "DELETE",
     });
+    redirectToAllSwits();
 }
 
 function deleteSwitById(id) {
     $.ajax({
-        url: "/rest/" + id + "/swit",
+        url: "/rest/swit/" + id,
         type: "DELETE",
     });
     redirectToAllSwits();
@@ -21,7 +22,7 @@ function updateSwitById(id, content) {
     });
 }
 
-function redirectToAllSwits(){
+function redirectToAllSwits() {
     window.location.replace("/swits");
 }
 

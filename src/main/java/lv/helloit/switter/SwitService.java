@@ -30,14 +30,17 @@ public class SwitService {
         swits.clear();
     }
 
-    public Swit addSwit(Swit newSwit) {
-        newSwit.setId(idCounter);
+    public Swit addSwit(ChangeSwitDTO switDTO) {
+        Swit swit = new Swit();
+        swit.setAuthor(switDTO.getAuthor());
+        swit.setContent(switDTO.getContent());
+        swit.setId(idCounter);
         idCounter++;
         var currentTime = LocalDateTime.now();
-        newSwit.setPublishDate(currentTime);
-        newSwit.setLastUpdateDate(currentTime);
-        swits.add(newSwit);
-        return newSwit;
+        swit.setPublishDate(currentTime);
+        swit.setLastUpdateDate(currentTime);
+        swits.add(swit);
+        return swit;
     }
 
     public void update(Long id, String newContent) {

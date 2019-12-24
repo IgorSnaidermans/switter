@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,18 +30,20 @@ public class SwitRestController {
         service.deleteAllSwits();
     }
 
-    @DeleteMapping("/swit/{id}/delete")
+    @DeleteMapping("/swit/{id}")
     public void deleteSwitById(@PathVariable("id") Long id) {
         service.deleteSwitById(id);
     }
 
     @PostMapping("/swit/update")
-    public void saveSwitUpdate(@ModelAttribute Swit swit){
+    public RedirectView saveSwitUpdate(@ModelAttribute Swit swit) {
         service.update(swit.getId(), swit.getContent());
+        return new RedirectView("/");
     }
 
     @PostMapping("/swit")
-    public void createSwit(Model model, @ModelAttribute Swit swit) {
+    public RedirectView createSwit(Model model, @Valid @ModelAttribute ChangeSwitDTO swit) {
         service.addSwit(swit);
+        return new RedirectView("/");
     }
 }

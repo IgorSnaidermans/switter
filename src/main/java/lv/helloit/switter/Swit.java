@@ -77,4 +77,6 @@ public class Swit {
     public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
+
+
 }

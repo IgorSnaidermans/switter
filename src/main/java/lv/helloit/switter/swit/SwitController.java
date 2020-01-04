@@ -1,24 +1,20 @@
-package lv.helloit.switter.controllers;
+package lv.helloit.switter.swit;
 
-import lv.helloit.switter.swit.ChangeSwitDTO;
-import lv.helloit.switter.swit.SwitService;
-import lv.helloit.switter.swit.UpdateSwitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 
 @Controller
-public class SwitWebController {
+public class SwitController {
     private final SwitService switService;
 
     @Autowired
-    public SwitWebController(SwitService switService) {
+    public SwitController(SwitService switService) {
         this.switService = switService;
     }
 

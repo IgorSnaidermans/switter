@@ -1,4 +1,4 @@
-package lv.helloit.switter.controllers;
+package lv.helloit.switter.rest;
 
 import lv.helloit.switter.swit.ChangeSwitDTO;
 import lv.helloit.switter.swit.Swit;
@@ -6,7 +6,6 @@ import lv.helloit.switter.swit.SwitService;
 import lv.helloit.switter.swit.UpdateSwitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 

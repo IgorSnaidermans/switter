@@ -16,15 +16,16 @@ public class SwitService {
         return swits;
     }
 
-    public Swit getSwitById(Long switId) {
+    public Optional<Swit> getSwitById(Long switId) {
         return swits.stream()
                 .filter(s -> s.getId().equals(switId))
-                .findFirst()
-                .get();
+                .findFirst();
     }
 
     public void deleteSwitById(Long id) {
-        swits.remove(getSwitById(id));
+        if (getSwitById(id).isPresent()) {
+            swits.remove(getSwitById(id).get());
+        }
     }
 
     public void deleteAllSwits() {
@@ -33,7 +34,7 @@ public class SwitService {
 
     public Swit addSwit(ChangeSwitDTO switDTO) {
         Swit swit = new Swit();
-        swit.setAuthor(switDTO.getAuthor());
+        swit.setAuthor(switDTO.getUserId());
         swit.setContent(switDTO.getContent());
         swit.setId(idCounter);
         idCounter++;
@@ -45,9 +46,11 @@ public class SwitService {
     }
 
     public void update(UpdateSwitDTO updateSwitDTO) {
-        Swit targetSwit = getSwitById(updateSwitDTO.getId());
-        targetSwit.setContent(updateSwitDTO.getContent());
-        targetSwit.setLastUpdateDate(LocalDateTime.now());
+        Optional<Swit> targetSwit = getSwitById(updateSwitDTO.getId());
 
+        if (targetSwit.isPresent()) {
+            targetSwit.get().setContent(updateSwitDTO.getContent());
+            targetSwit.get().setLastUpdateDate(LocalDateTime.now());
+        }
     }
 }

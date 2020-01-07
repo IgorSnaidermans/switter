@@ -64,6 +64,12 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.sparkpost</groupId>
+            <artifactId>sparkpost-lib</artifactId>
+            <version>0.21</version>
+        </dependency>
+
     </dependencies>
 
     <build>

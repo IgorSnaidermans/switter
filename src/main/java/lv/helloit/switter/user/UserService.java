@@ -1,5 +1,7 @@
 package lv.helloit.switter.user;
 
+import com.sparkpost.exception.SparkPostException;
+import lv.helloit.switter.swit.EmailService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,11 @@ import java.util.UUID;
 @Service
 public class UserService {
 
+    private EmailService emailService;
     private UserDAO userDAO;
 
-    public UserService(UserDAO userDAO) {
+    public UserService(EmailService emailService, UserDAO userDAO) {
+        this.emailService = emailService;
         this.userDAO = userDAO;
     }
 
@@ -24,6 +28,12 @@ public class UserService {
                 .build();
 
         userDAO.save(user);
+
+        try {
+            emailService.sendNewUserEmail(user.getEmail());
+        } catch (SparkPostException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getAllUsers(){

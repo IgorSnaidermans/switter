@@ -11,7 +11,7 @@
     <%--@elvariable id="swit" type="lv.helloit.switter.swit.Swit"--%>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">${swit.author}</h5>
+            <h5 class="card-title">${swit.userId}</h5>
             <p class="card-text">${swit.content}</p>
 
             <p>Published: ${swit.publishDate}</p>

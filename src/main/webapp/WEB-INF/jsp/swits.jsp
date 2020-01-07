@@ -21,7 +21,7 @@
     <c:forEach items="${swits}" var="swit">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">${swit.author}</h5>
+                <h5 class="card-title">${swit.userId}</h5>
                 <p class="card-text">${swit.content}</p>
                 <a href="/swit/${swit.id}" class="btn btn-primary">More information</a>
                 <a href="/" onclick="deleteSwitById(${swit.id})" class="btn btn-danger">Delete swit</a>

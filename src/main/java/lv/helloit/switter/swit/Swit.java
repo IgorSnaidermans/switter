@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Swit {
     private Long id;
     private String content;
-    private String author;
+    private String userId;
     private LocalDateTime publishDate;
     private LocalDateTime lastUpdateDate;
 
@@ -17,14 +17,14 @@ public class Swit {
         Swit swit = (Swit) o;
         return Objects.equals(id, swit.id) &&
                 Objects.equals(content, swit.content) &&
-                Objects.equals(author, swit.author) &&
+                Objects.equals(userId, swit.userId) &&
                 Objects.equals(publishDate, swit.publishDate) &&
                 Objects.equals(lastUpdateDate, swit.lastUpdateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, author, publishDate, lastUpdateDate);
+        return Objects.hash(id, content, userId, publishDate, lastUpdateDate);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Swit {
         return "Swit{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", author='" + author + '\'' +
+                ", userId='" + userId + '\'' +
                 ", publishDate=" + publishDate +
                 ", lastUpdateDate=" + lastUpdateDate +
                 '}';
@@ -54,12 +54,12 @@ public class Swit {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getUserId() {
+        return userId;
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.userId = author;
     }
 
     public LocalDateTime getPublishDate() {

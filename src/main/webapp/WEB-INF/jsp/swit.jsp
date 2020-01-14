@@ -24,5 +24,6 @@
     <a href="/" onclick="deleteSwitById(${switDTO.id})" class="btn btn-danger">Delete</a>
 
 </div>
+<%@include file="footer.jsp" %>
 </body>
 </html>

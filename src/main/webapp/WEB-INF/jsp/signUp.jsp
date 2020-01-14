@@ -22,8 +22,7 @@
             </div>
 
             <div class="form-group form-check">
-                <input type="checkbox" name="agree" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">I agree with service rules</label>
+                Your e-mail will be visible to all registered users who would use the website.
             </div>
 
             <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -33,5 +32,6 @@
     </div>
 
 </div>
+<%@include file="footer.jsp" %>
 </body>
 </html>

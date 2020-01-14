@@ -19,7 +19,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/signup")
     String signUp(Model model,
                           @Valid @ModelAttribute CreateUserDTO createUserDTO,

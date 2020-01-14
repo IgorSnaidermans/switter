@@ -1,6 +1,8 @@
 package lv.helloit.switter.swit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,13 +28,13 @@ public class SwitController {
 
     @GetMapping("/swit/{id}")
     String getSwit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("swit", switService.getSwitById(id));
+        model.addAttribute("switDTO", switService.getSwitByIdToShow(id));
         return "swit";
     }
 
     @GetMapping("/swit/{id}/update")
     String updateSwit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("swit", switService.getSwitById(id));
+        model.addAttribute("swit", switService.getSwitByIdToShow(id));
         return "updateSwit";
     }
 
@@ -43,14 +45,16 @@ public class SwitController {
 
     @PostMapping("/swit")
     public RedirectView createSwit(Model model,
-                                   @Valid @ModelAttribute ChangeSwitDTO swit,
-                                   BindingResult bindingResult) {
+                                   @Valid @ModelAttribute ChangeSwitDTO switDTO,
+                                   BindingResult bindingResult,
+                                   Authentication authentication) {
         if (bindingResult.hasErrors()) {
             String wrongField = bindingResult.getFieldErrors().get(0).getField();
             model.addAttribute(wrongField + "_fail", true);
             return new RedirectView("/postSwit");
         } else {
-            switService.addSwit(swit);
+            SecurityContextHolder.getContext().getAuthentication();
+            switService.addSwit(switDTO, authentication.getName());
             return new RedirectView("/");
         }
     }

@@ -8,20 +8,20 @@
 
 <div class="container">
     <%@include file="navbar.jsp"%>
-    <%--@elvariable id="swit" type="lv.helloit.switter.swit.Swit"--%>
+    <%--@elvariable id="switDTO" type="lv.helloit.switter.swit.SwitDTO"--%>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">${swit.userId}</h5>
-            <p class="card-text">${swit.content}</p>
+            <h5 class="card-title">${switDTO.userEmail}</h5>
+            <p class="card-text">${switDTO.content}</p>
 
-            <p>Published: ${swit.publishDate}</p>
-            <c:if test="${!swit.publishDate.equals(swit.lastUpdateDate)}">
-                <p>Modified: ${swit.lastUpdateDate}</p>
+            <p>Published: ${switDTO.publishDate}</p>
+            <c:if test="${!switDTO.publishDate.equals(swit.lastUpdateDate)}">
+                <p>Modified: ${switDTO.lastUpdateDate}</p>
             </c:if>
         </div>
     </div>
-    <a href="/swit/${swit.id}/update" class="btn btn-primary">Update this swit</a>
-    <a href="/" onclick="deleteSwitById(${swit.id})" class="btn btn-danger">Delete swit</a>
+    <a href="/swit/${switDTO.id}/update" class="btn btn-primary">Update this swit</a>
+    <a href="/" onclick="deleteSwitById(${switDTO.id})" class="btn btn-danger">Delete</a>
 
 </div>
 </body>

@@ -22,10 +22,10 @@ public class SwitRestController {
         this.service = service;
     }
 
-    @GetMapping("/swits")
+    /*@GetMapping("/swits")
     public List<Swit> getAllSwits() {
         return service.getAllSwits();
-    }
+    }*/
 
     @DeleteMapping("/swits")
     public void deleteAllSwits() {
@@ -43,10 +43,10 @@ public class SwitRestController {
         return new RedirectView("/");
     }
 
-    @PostMapping("/swit")
+    /*@PostMapping("/swit")
     public RedirectView createSwit(Model model,
                                    @Valid @ModelAttribute ChangeSwitDTO changeSwitDTO) {
         service.addSwit(changeSwitDTO);
         return new RedirectView("/");
-    }
+    }*/
 }

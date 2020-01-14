@@ -1,8 +1,10 @@
-<%
-    String currentPage = request.getParameter("currentPage");
-%>
-
+<%String currentPage = request.getParameter("currentPage");%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="messages" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
 </head>
@@ -18,16 +20,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/postSwit">Post Swit</a>
+                <a class="nav-link" href="/postSwit"><fmt:message key="post"/> </a>
             </li>
             <li>
-                <a class="nav-link" href="/" onclick="deleteAllSwits()">Delete all swits</a>
+                <a class="nav-link" href="/" onclick="deleteAllSwits()"><fmt:message key="delete.all.swits"/></a>
             </li>
             <li>
-                <a class="nav-link" href="/userlist">Users</a>
+                <a class="nav-link" href="/userlist"><fmt:message key="users"/></a>
             </li>
         </ul>
-        <a class="nav-link" href="/signup">Sign Up</a>
+        <a class="nav-link" href="/signup"><fmt:message key="sign.up"/></a>
+        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="?sessionLocale=lv">LV</a>
+        <a href="?sessionLocale=en">EN</a>
     </div>
 </nav>
 

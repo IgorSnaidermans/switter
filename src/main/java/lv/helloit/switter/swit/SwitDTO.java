@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class SwitDTO {
     private String userEmail;
-    private Long id;
+    private String id;
     private String content;
     private String userId;
     private String publishDate;
@@ -58,11 +58,11 @@ public class SwitDTO {
         this.userEmail = userEmail;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -100,7 +100,7 @@ public class SwitDTO {
 
     public static final class Builder {
         private String userEmail;
-        private Long id;
+        private String id;
         private String content;
         private String userId;
         private String publishDate;
@@ -114,7 +114,7 @@ public class SwitDTO {
             return this;
         }
 
-        public Builder id(Long val) {
+        public Builder id(String val) {
             id = val;
             return this;
         }

@@ -20,6 +20,18 @@ public class SwitController {
         this.switService = switService;
     }
 
+    @DeleteMapping("/swits")
+    RedirectView deleteAllSwits(){
+        switService.deleteAllSwits();
+        return new RedirectView("/");
+    }
+
+    @DeleteMapping("/swit/{id}")
+    RedirectView deleteAllSwits(@PathVariable("id") String id){
+        switService.deleteSwitById(id);
+        return new RedirectView("/");
+    }
+
     @GetMapping({"/", "/swits"})
     String getSwits(Model model) {
         model.addAttribute("swits", switService.getAllSwits());
@@ -27,13 +39,13 @@ public class SwitController {
     }
 
     @GetMapping("/swit/{id}")
-    String getSwit(Model model, @PathVariable("id") Long id) {
+    String getSwit(Model model, @PathVariable("id") String id) {
         model.addAttribute("switDTO", switService.getSwitByIdToShow(id));
         return "swit";
     }
 
     @GetMapping("/swit/{id}/update")
-    String updateSwit(Model model, @PathVariable("id") Long id) {
+    String updateSwit(Model model, @PathVariable("id") String id) {
         model.addAttribute("swit", switService.getSwitByIdToShow(id));
         return "updateSwit";
     }

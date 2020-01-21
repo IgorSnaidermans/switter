@@ -2,6 +2,7 @@ package lv.helloit.switter.swit;
 
 import lv.helloit.switter.user.User;
 import lv.helloit.switter.user.UserService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -9,21 +10,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SwitService {
     private UserService userService;
-    private List<Swit> swits = new ArrayList<>();
-    private Long idCounter = 1L;
+    private SwitDao switDao;
 
-    public SwitService(UserService userService) {
+    public SwitService(UserService userService, SwitDao switDao) {
         this.userService = userService;
+        this.switDao = switDao;
     }
+
 
     public List<SwitDTO> getAllSwits() {
         List<SwitDTO> result = new ArrayList<>();
 
-        for (Swit swit : swits) {
+        for (Swit swit : switDao.findAll()) {
             SwitDTO switDTO = buildSwit(swit);
             result.add(switDTO);
         }
@@ -31,7 +34,8 @@ public class SwitService {
         return result;
     }
 
-    public SwitDTO getSwitByIdToShow(Long switId) {
+
+    public SwitDTO getSwitByIdToShow(String switId) {
         Optional<Swit> possibleSwit = getSwitById(switId);
 
         if (possibleSwit.isPresent()) {
@@ -40,6 +44,56 @@ public class SwitService {
         }
         return null;
     }
+
+
+    public void deleteSwitById(String id) {
+        if (getSwitById(id).isPresent()) {
+            switDao.deleteById(id);
+        }
+    }
+
+
+    public Optional<Swit> getSwitById(String id) {
+        return switDao.findById(id);
+    }
+
+
+    public void deleteAllSwits() {
+        switDao.deleteAll();
+    }
+
+
+    public Swit addSwit(ChangeSwitDTO newSwit, String authorEmail) {
+
+        Swit swit = new Swit();
+        swit.setId(UUID.randomUUID().toString());
+        swit.setContent(newSwit.getContent());
+        Optional<User> possibleUser = userService.getUserByEmail(authorEmail);
+        possibleUser.ifPresent(user -> swit.setUserId(user.getId()));
+
+        var currentTime = LocalDateTime.now();
+        swit.setPublishDate(currentTime);
+        swit.setLastUpdateDate(currentTime);
+        switDao.save(swit);
+        return swit;
+    }
+
+
+    public void update(UpdateSwitDTO updateSwitDTO) {
+
+
+        Optional<Swit> targetSwit = switDao.findById(updateSwitDTO.getId());
+
+        if (targetSwit.isPresent()) {
+            Swit swit = targetSwit.get();
+            swit.setContent(updateSwitDTO.getContent());
+            var currentTime = LocalDateTime.now();
+            swit.setLastUpdateDate(currentTime);
+            switDao.save(swit);
+        }
+
+    }
+
 
     private SwitDTO buildSwit(Swit swit) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -52,45 +106,5 @@ public class SwitService {
                 .userEmail(userService.getUserById(swit.getUserId()).getEmail())
                 .build();
     }
-
-    public void deleteSwitById(Long id) {
-        if (getSwitById(id).isPresent()) {
-            swits.remove(getSwitById(id).get());
-        }
-    }
-
-    public Optional<Swit> getSwitById(Long switId) {
-        return swits.stream()
-                .filter(s -> s.getId().equals(switId))
-                .findFirst();
-    }
-
-    public void deleteAllSwits() {
-        swits.clear();
-    }
-
-    public Swit addSwit(ChangeSwitDTO switDTO, String userEmail) {
-        Swit swit = new Swit();
-        Optional<User> user = userService.getUserByEmail(userEmail);
-        user.ifPresent(value -> swit.setAuthor(value.getId()));
-        swit.setContent(switDTO.getContent());
-        swit.setId(idCounter);
-        idCounter++;
-        var currentTime = LocalDateTime.now();
-        swit.setPublishDate(currentTime);
-        swit.setLastUpdateDate(currentTime);
-        swits.add(swit);
-        return swit;
-    }
-
-    public void update(UpdateSwitDTO updateSwitDTO) {
-        Optional<Swit> targetSwit = getSwitById(updateSwitDTO.getId());
-
-        if (targetSwit.isPresent()) {
-            targetSwit.get().setContent(updateSwitDTO.getContent());
-            targetSwit.get().setLastUpdateDate(LocalDateTime.now());
-        }
-    }
-
 
 }

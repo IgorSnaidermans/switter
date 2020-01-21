@@ -25,9 +25,6 @@
             <li>
                 <a class="nav-link" href="/" onclick="deleteAllSwits()"><fmt:message key="delete.all.swits"/></a>
             </li>
-            <li>
-                <a class="nav-link" href="/userlist"><fmt:message key="users"/></a>
-            </li>
         </ul>
         <a class="nav-link" href="/signup"><fmt:message key="sign.up"/></a>
         <a class="nav-link" href="/logout">Logout</a>

@@ -23,7 +23,7 @@ class SwitRestControllerTest {
     @Test
     void shouldPostAndGetSwit() {
         Swit swit = new Swit();
-        swit.setAuthor("Me");
+        swit.setUserId("Me");
         swit.setContent("Test swit");
 
         restTemplate.postForObject(getUrl() + "/swit", swit, String.class);
@@ -39,7 +39,7 @@ class SwitRestControllerTest {
     @Test
     void shouldDeleteSwits() {
         Swit swit = new Swit();
-        swit.setAuthor("Me");
+        swit.setUserId("Me");
         swit.setContent("Test swit");
 
         restTemplate.postForObject(getUrl() + "/swit", swit, String.class);
@@ -56,7 +56,7 @@ class SwitRestControllerTest {
     @Test
     void shouldPut() {
         Swit swit = new Swit();
-        swit.setAuthor("Me");
+        swit.setUserId("Me");
         swit.setContent("Test swit");
 
         Swit createdSwit = restTemplate.postForObject(

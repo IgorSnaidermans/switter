@@ -1,13 +1,23 @@
 package lv.helloit.switter.swit;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity(name="swit") //имя таблицы
 public class Swit {
-    private Long id;
+    @Id
+    private String id;
+    @Column
     private String content;
+    @Column
     private String userId;
+    @Column
     private LocalDateTime publishDate;
+    @Column
     private LocalDateTime lastUpdateDate;
 
     @Override
@@ -38,11 +48,11 @@ public class Swit {
                 '}';
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,8 +68,8 @@ public class Swit {
         return userId;
     }
 
-    public void setAuthor(String author) {
-        this.userId = author;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getPublishDate() {

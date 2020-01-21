@@ -1,14 +1,15 @@
 function deleteAllSwits() {
     $.ajax({
-        url: "/rest/swits",
+        url: "/swits",
         type: "DELETE",
     });
     redirectToAllSwits();
 }
 
 function deleteSwitById(id) {
+    let switId = id;
     $.ajax({
-        url: "/rest/swit/" + id,
+        url: "/swit/" + switId,
         type: "DELETE",
     });
     redirectToAllSwits();

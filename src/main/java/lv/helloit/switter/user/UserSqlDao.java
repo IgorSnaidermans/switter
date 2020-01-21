@@ -1,13 +1,58 @@
 package lv.helloit.switter.user;
 
-import java.sql.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
-public class UserSqlDao {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class UserSqlDao implements UserDaoInterface {
     static final String DB_URL = "jdbc:postgresql://ec2-54-247-181-232.eu-west-1.compute.amazonaws.com:5432/ddlvu5pf94g6u3";
     static final String DB_USER = "ubtflmsvlsvcla";
     static final String DB_PASSWORD = "b874bc49a245517ecaf7de62b7fd42bde8e08a445eef647e20804376ca045bd9";
 
-    public static void main(String[] args) {
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public UserSqlDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public void save(User user) {
+        String query = "INSERT INTO \"USER\"(id, email, passwordhash) " +
+                "VALUES ('" + user.getId() + "', '" + user.getEmail() + "', '" + user.getPasswordHash() + "')";
+        jdbcTemplate.update(query);
+
+    }
+
+    @Override
+    public User getUserById(String id) {
+        String query = "SELECT * FROM \"USER\" WHERE id = '" + id + "'";
+        return jdbcTemplate.queryForObject(query, new UserRowMapper());
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public Optional<User> getByEmail(String searchEmail) {
+        String query = "SELECT * FROM \"USER\" WHERE email = '" + searchEmail + "'";
+        User user = jdbcTemplate.queryForObject(query, new UserRowMapper());
+        return Optional.ofNullable(user);
+    }
+
+
+
+    /*@Override
+    public List<User> getAllUsers() {
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -15,31 +60,28 @@ public class UserSqlDao {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM \"SWIT\"");
+            rs = statement.executeQuery("SELECT * FROM \"USER\"");
 
-            while(rs.next()){
-                System.out.println(rs.getString("id"));
-                System.out.println(rs.getString("content"));
-                System.out.println(rs.getString("publishdate"));
-                System.out.println(rs.getString("userid"));
+
+            List<User> userList = new ArrayList<>();
+
+            while (rs.next()) {
+                User user = new User.Builder()
+                        .email(rs.getString("email"))
+                        .id(rs.getString("id").toString())
+                        .password(rs.getString("passwordhash"))
+                        .build();
+                userList.add(user);
             }
+
+            return userList;
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (NullPointerException | SQLException e) {
-                System.out.println("Already closed");
-            }
+            closeConnection(connection, statement, rs);
         }
+        return null;
     }
+    */
 }

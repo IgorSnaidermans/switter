@@ -3,15 +3,15 @@ package lv.helloit.switter.swit;
 import javax.validation.constraints.NotBlank;
 
 public class UpdateSwitDTO {
-    private Long id;
+    private String id;
     @NotBlank
     private String content;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

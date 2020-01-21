@@ -16,10 +16,10 @@ public class UserService {
 
     private PasswordService passwordService;
     private EmailService emailService;
-    private UserDAO userDAO;
+    private UserDaoInterface userDAO;
 
     @Autowired
-    public UserService(PasswordService passwordService, EmailService emailService, UserDAO userDAO) {
+    public UserService(PasswordService passwordService, EmailService emailService, UserDaoInterface userDAO) {
         this.passwordService = passwordService;
         this.emailService = emailService;
         this.userDAO = userDAO;
@@ -39,11 +39,11 @@ public class UserService {
 
         userDAO.save(user);
 
-        try {
+        /*try {
             emailService.sendNewUserEmail(user.getEmail());
         } catch (SparkPostException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public List<User> getAllUsers(){
@@ -54,10 +54,7 @@ public class UserService {
         return userDAO.getUserById(id);
     }
 
-    public Optional<User> getUserByEmail(String email){
-        return userDAO.getAllUsers()
-                .stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst();
+    public Optional<User> getUserByEmail(String email) {
+        return userDAO.getByEmail(email);
     }
 }

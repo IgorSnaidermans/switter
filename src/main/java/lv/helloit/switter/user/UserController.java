@@ -33,10 +33,4 @@ public class UserController {
     String signUp(Model model){
         return "signUp";
     }
-
-    @GetMapping("/userlist")
-    String getUserList(Model model){
-        model.addAttribute("users", userService.getAllUsers());
-        return "userList";
-    }
 }

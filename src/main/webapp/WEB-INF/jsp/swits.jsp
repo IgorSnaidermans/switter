@@ -28,7 +28,8 @@
             <div class="card-body">
                 <h5 class="card-title">${switDTO.userEmail}</h5>
                 <p class="card-text">${switDTO.content}</p>
-                <p class="card-text">${switDTO.publishDate}</p>
+                <p class="card-text"><c:if test="${switDTO.publishDate.equals(switDTO.lastUpdateDate)}">${switDTO.publishDate}</c:if>
+                    <c:if test="${!switDTO.publishDate.equals(switDTO.lastUpdateDate)}">${switDTO.publishDate}</c:if></p>
                 <a href="/swit/${switDTO.id}" class="btn btn-primary"><fmt:message key="edit" /></a>
                 <a href="/" onclick="deleteSwitById(${switDTO.id})" class="btn btn-danger"><fmt:message key="delete" /></a>
             </div>

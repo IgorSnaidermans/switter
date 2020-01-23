@@ -31,7 +31,7 @@
                 <p class="card-text"><c:if test="${switDTO.publishDate.equals(switDTO.lastUpdateDate)}">${switDTO.publishDate}</c:if>
                     <c:if test="${!switDTO.publishDate.equals(switDTO.lastUpdateDate)}">${switDTO.publishDate}</c:if></p>
                 <a href="/swit/${switDTO.id}" class="btn btn-primary"><fmt:message key="edit" /></a>
-                <a href="/" onclick="deleteSwitById(${switDTO.id})" class="btn btn-danger"><fmt:message key="delete" /></a>
+                <a href="/" onclick="deleteSwitById('${switDTO.id}')" class="btn btn-danger"><fmt:message key="delete" /></a>
             </div>
         </div>
     </c:forEach>
